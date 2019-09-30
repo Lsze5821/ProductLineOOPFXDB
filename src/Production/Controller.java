@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javax.swing.Action;
 /**
  * Author Louis Sze
  */
@@ -20,6 +21,7 @@ public class Controller {
 
   @FXML private Button addProduct;
   @FXML private ComboBox<Integer> quantityBox = new ComboBox<>();
+  @FXML private Button recordProd;
   /*
   @FXML
   private void handleButtonAction(ActionEvent event) {
@@ -34,6 +36,7 @@ public class Controller {
   public void initialize() {
 
     addProduct.setOnAction(this::handleButtonAction);
+    recordProd.setOnAction(this::ProductionButtonAction);
     comboBox();
     initializeDB();
   }
@@ -84,6 +87,10 @@ public class Controller {
    * When the button is clicked runs the try statement adding the hardcoded data into the database.
    * @param event that runs the code for when the button is clicked.
    */
+  @FXML
+  private void ProductionButtonAction(ActionEvent event){
+    System.out.println("Product Recorded");
+  }
   @FXML
   private void handleButtonAction(ActionEvent event) {
     System.out.println("Product Added");

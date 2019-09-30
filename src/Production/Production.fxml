@@ -65,7 +65,7 @@
             <Label layoutX="29.0" layoutY="24.0" text="Choose Product" />
             <ComboBox fx:id="quantityBox" layoutX="368.0" layoutY="66.0" prefWidth="150.0" />
             <Label layoutX="388.0" layoutY="45.0" text="Choose Quantity" />
-            <Button layoutX="372.0" layoutY="214.0" mnemonicParsing="false" text="Record Production" />
+            <Button fx:id="recordProd" layoutX="372.0" layoutY="214.0" mnemonicParsing="false" text="Record Production" />
           </children>
         </AnchorPane>
       </content>
