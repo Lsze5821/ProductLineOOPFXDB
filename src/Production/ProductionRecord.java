@@ -1,5 +1,5 @@
 package Production;
-
+/** @Author Louis Sze */
 import java.util.Date;
 
 public class ProductionRecord {
@@ -25,7 +25,7 @@ public class ProductionRecord {
   ProductionRecord(Product product, int counter) {
     String idNumber = String.format("%05d", counter);
     this.serialNumber =
-        product.getManufacturer().substring(0, 3) + product.getiType().getItemType() + idNumber;
+        product.getManufacturer().substring(0, 3) + product.getType().getItemType() + idNumber;
 
     this.dateProduced = new Date();
   }

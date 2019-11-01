@@ -1,15 +1,19 @@
 package Production;
-
+/** @Author Louis Sze */
 public class MoviePlayer extends Product implements MultimediaControl {
 
+  // fields fore movie player extending product and implements multimedia control
   Screen screen;
   MonitorType monitortype;
+
+  // constructor for movie player
 
   MoviePlayer(String name, String manufacturer, Screen screen, MonitorType monitortype) {
     super(name, manufacturer, ItemType.VISUAL);
     this.screen = screen;
     this.monitortype = monitortype;
   }
+  // methods for movie player
 
   @Override
   public int getID() {
@@ -35,7 +39,7 @@ public class MoviePlayer extends Product implements MultimediaControl {
   public void next() {
     System.out.println("Next movie");
   }
-
+  // to string method that converts the value to string value and returns as a string value
   public String toString() {
     return "Name: "
         + name
@@ -44,7 +48,7 @@ public class MoviePlayer extends Product implements MultimediaControl {
         + manufacturer
         + "\n"
         + "Type: "
-        + iType
+        + type
         + " \n"
         + "Screen: "
         + screen

@@ -2,11 +2,64 @@
   -fx-background-image: url("background.jpg");
 }
 
+#lb_productName {
+  -fx-text-fill: white;
+}
+
+#lb_manufacturer {
+  -fx-text-fill: white;
+}
+
+#lb_itemType {
+  -fx-text-fill: white;
+}
+
+#lb_existingProduct {
+  -fx-text-fill: white;
+}
+
+#tb_existingProd {
+  -fx-text-fill: black;
+}
+
+#lb_chooseProduct {
+  -fx-text-fill: white;
+}
+
+#lb_chooseQuantity {
+  -fx-text-fill: white;
+}
+
+#recordProd {
+  -fx-font-size: 13px;
+  -fx-font-weight: bold;
+}
+
+#itemBox {
+  -fx-text-fill: black;
+}
+
+#tab_produce {
+  -fx-font-weight: bold;
+  -fx-font-size: 14px;
+}
+
+#tab_productionLog {
+  -fx-font-weight: bold;
+  -fx-font-size: 14px;
+}
+
+#tab_productLine {
+  -fx-font-weight: bold;
+  -fx-font-size: 14px;
+}
+#productionLog{
+  -fx-font-size: 14px;
+}
+
 .label {
   -fx-font-size: 14px;
   -fx-font-weight: bold;
-  -fx-text-fill: black
-
 }
 
 #welcome-text {

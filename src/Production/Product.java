@@ -1,18 +1,19 @@
 package Production;
-
+/** @Author Louis Sze */
 abstract class Product implements Item {
-
+  // fields for the Abstract Product class
   int id;
-  ItemType iType;
+  ItemType type;
   String manufacturer;
   String name;
-
-  Product(String name, String manufacturer, ItemType iType) {
+  /* constructor for product initializing object of the class with defined value instead of using a
+  null value*/
+  Product(String name, String manufacturer, ItemType type) {
     this.name = name;
     this.manufacturer = manufacturer;
-    this.iType = iType;
+    this.type = type;
   }
-
+  // setters and getters for the field and methods
   public int getId() {
     return id;
   }
@@ -21,12 +22,12 @@ abstract class Product implements Item {
     this.id = id;
   }
 
-  public ItemType getiType() {
-    return this.iType;
+  public ItemType getType() {
+    return this.type;
   }
 
-  public void setiType(ItemType iType) {
-    this.iType = iType;
+  public void setType(ItemType type) {
+    this.type = type;
   }
 
   public String getManufacturer() {
@@ -46,8 +47,8 @@ abstract class Product implements Item {
   public void setName(String name) {
     this.name = name;
   }
-
+  // to string method that converts the data type and returns it as a string
   public String toString() {
-    return "Name: " + name + "\n" + "Manufacturer: " + manufacturer + "\n" + "Type: " + iType;
+    return "Name: " + name + "\n" + "Manufacturer: " + manufacturer + "\n" + "Type: " + type;
   }
 }

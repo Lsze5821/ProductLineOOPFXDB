@@ -1,15 +1,13 @@
 package Production;
-
+/** @Author Louis Sze */
 public class AudioPlayer extends Product implements MultimediaControl {
 
-  /**
-   * AudioPlayer class that extends product and implements MultimediaControl to.String method
-   * converts abstract variables to string
-   */
+  // fields for audio player that extends product and implements multimedia control
   String supportedAudioformats;
 
   String supportedPlaylistformats;
 
+  // constructor for audio player
   AudioPlayer(
       String name,
       String manufacturer,
@@ -21,7 +19,7 @@ public class AudioPlayer extends Product implements MultimediaControl {
     this.supportedAudioformats = supportedAudioFormats;
     this.supportedPlaylistformats = supportedPlaylistFormats;
   }
-
+  // methods for audio player
   @Override
   public int getID() {
     return 0;
@@ -43,6 +41,8 @@ public class AudioPlayer extends Product implements MultimediaControl {
     System.out.println("Previous");
   }
 
+  // to string method that converts the value to string and returns it as a string
+
   public String toString() {
     return "Name: "
         + name
@@ -51,7 +51,7 @@ public class AudioPlayer extends Product implements MultimediaControl {
         + manufacturer
         + "\n"
         + "Type: "
-        + iType
+        + type
         + " \n"
         + "Supported Audio Formats: "
         + supportedAudioformats

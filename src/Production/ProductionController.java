@@ -4,12 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-import java.util.ArrayList;
-import javafx.beans.property.Property;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
@@ -17,8 +14,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import org.w3c.dom.Text;
-/** Author Louis Sze */
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.fxml.FXML;
+
+/** @Author Louis Sze */
 
 /**
  * Controller class that runs the database and gui. Creating private button linked to button id
@@ -34,19 +33,12 @@ public class ProductionController {
   @FXML private TextField txt_prodName;
   @FXML private TextField txt_manufacturer;
   @FXML private TableView<Product> tb_existingProd;
-  @FXML private TableColumn<String, Product> tbc_prodName;
-  @FXML private TableColumn<String, Product> tbc_manufacturer;
-  @FXML private TableColumn<ItemType, Product> tbc_itemType;
+  @FXML private TableColumn<?, ?> tbc_prodName;
+  @FXML private TableColumn<?, ?> tbc_manufacturer;
+  @FXML private TableColumn<?, ?> tbc_itemType;
   @FXML private ObservableList<Product> productLine = FXCollections.observableArrayList();
   private PreparedStatement preparedStatement;
 
-
-  /*
-  @FXML
-  private void handleButtonAction(ActionEvent event) {
-    System.out.println("Product Added");
-  }
-  */
   /** This class starts calls comboBox, initializeDB, and button Starts the program. */
 
   // @Override
@@ -55,33 +47,18 @@ public class ProductionController {
     comboBox();
     itemBox();
     initializeDB();
+    testing();
+    tableColumns();
     addProduct.setOnAction(this::handleButtonAction);
     recordProd.setOnAction(this::ProductionButtonAction);
-
-
-
-    // for loop that creates testing the production log
-    Product productProduced = new Widget("iPod", "Apple", ItemType.AUDIO);
-    int numProduced = 3; // this will come from the combobox in the UI
-    int itemCount = 0;
-    for (int productionRunProduct = 0; productionRunProduct < numProduced; productionRunProduct++) {
-      ProductionRecord pr = new ProductionRecord(productProduced, itemCount++);
-      // using the iterator as the product id for testing
-      System.out.println(pr.toString());
-      ProductionRecord prodRec = new ProductionRecord(0);
-      productionLog.setText(prodRec.toString());
-    }
-
-    ProductionRecord prodRec2 = new ProductionRecord(productProduced, itemCount++);
-    productionLog.setText(prodRec2.toString());
   }
 
-  /** populating the choice box from ItemType enum */
+  /*populating the choice box from ItemType enum */
   private void itemBox() {
     itemBox.setItems(FXCollections.observableArrayList(ItemType.values()));
   }
 
-  /** This is the comboBox. for loop used to iterate 1-10 for the quantitybox. */
+  /*This is the comboBox. for loop used to iterate 1-10 for the quantitybox. */
   private void comboBox() {
     for (int n = 1; n < 11; n++) {
       quantityBox.getItems().add(n);
@@ -134,7 +111,7 @@ public class ProductionController {
     /* Creating a String variable to get text from the textfield */
     String typeText = txt_prodName.getText();
     String manuText = txt_manufacturer.getText();
-    String itemChoice = itemBox.getValue().toString();
+    ItemType itemChoice = itemBox.getValue();
     System.out.println("Product Added");
 
     /**
@@ -142,15 +119,18 @@ public class ProductionController {
      * database
      */
     try {
+      // inserting the data into the database
       String sql = "INSERT INTO Product(name, manufacturer, type) VALUES ( ?,?,?)";
       preparedStatement = conn.prepareStatement(sql);
       preparedStatement.setString(1, typeText);
       preparedStatement.setString(2, manuText);
-      preparedStatement.setString(3, itemChoice);
+      preparedStatement.setString(3, itemChoice.toString());
       preparedStatement.executeUpdate();
 
-      //Product line Table
-      //productLine.add(new Widget(txt_prodName,txt_manufacturer,itemBox));
+      // adding products to observable array list and displaying into the table
+      productLine.add(new Widget(typeText, manuText, itemChoice));
+      System.out.println(productLine);
+      tb_existingProd.setItems(productLine);
 
       /* clear() resets the text field back to an empty field */
       txt_manufacturer.clear();
@@ -159,9 +139,33 @@ public class ProductionController {
       ex.printStackTrace();
     }
   }
+
+  private void tableColumns() {
+    // Table Columns setting the values
+    tbc_prodName.setCellValueFactory(new PropertyValueFactory<>("name"));
+    tbc_manufacturer.setCellValueFactory(new PropertyValueFactory<>("manufacturer"));
+    tbc_itemType.setCellValueFactory(new PropertyValueFactory<>("type"));
+  }
+
+  private void testing() {
+    // for loop that creates testing the production log
+    Product productProduced = new Widget("iPod", "Apple", ItemType.AUDIO);
+    int numProduced = 3; // this will come from the combobox in the UI
+    int itemCount = 0;
+    for (int productionRunProduct = 0; productionRunProduct < numProduced; productionRunProduct++) {
+      ProductionRecord pr = new ProductionRecord(productProduced, itemCount++);
+      // using the iterator as the product id for testing
+      System.out.println(pr.toString());
+      ProductionRecord prodRec = new ProductionRecord(0);
+      productionLog.setText(prodRec.toString());
+    }
+
+    ProductionRecord prodRec2 = new ProductionRecord(productProduced, itemCount++);
+    productionLog.setText(prodRec2.toString());
+  }
 }
-/**
- * Adam Dressel helped me linked controller to .fxml file
+
+/*
  * https://noblecodemonkeys.com/how-to-handle-javafx-button-click-events/
  * https://www.tutorialspoint.com/jdbc/jdbc-insert-records.htm
  * https://docs.oracle.com/javafx/2/ui_controls/choice-box.htm

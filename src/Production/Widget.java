@@ -1,8 +1,8 @@
 package Production;
-
+/** @Author Louis Sze */
 public class Widget extends Product {
-  Widget(String name, String manufacturer, ItemType iType) {
-    super(name, manufacturer, iType);
+  Widget(String name, String manufacturer, ItemType type) {
+    super(name, manufacturer, type);
   }
 
   @Override

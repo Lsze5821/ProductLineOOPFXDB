@@ -1,5 +1,5 @@
 package Production;
-
+/** @Author Louis Sze */
 public class Screen implements ScreenSpec {
 
   private String resolution;
@@ -30,8 +30,8 @@ public class Screen implements ScreenSpec {
   /** @return */
   public String toString() {
     return "Screen:"
-        +"\n"
-        +"resolution: "
+        + "\n"
+        + "resolution: "
         + resolution
         + "\n"
         + "Refresh rate: "

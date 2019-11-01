@@ -1,4 +1,7 @@
 package Production;
+/** @Author Louis Sze */
+
+// enums that contain the item type and the code for item types
 
 public enum ItemType {
   AUDIO("AU"),

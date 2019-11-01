@@ -17,9 +17,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Production.ProductionController">
+<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Production.ProductionController">
   <tabs>
-    <Tab text="Product Line">
+    <Tab fx:id="tab_productLine" text="Product Line">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
           <children>
@@ -34,11 +34,11 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
               <children>
-                <Label text="Product Name" />
+                <Label fx:id="lb_productName" text="Product Name" />
                 <TextField fx:id="txt_prodName" GridPane.columnIndex="1" />
-                <Label text="Manufacturer" GridPane.rowIndex="1" />
+                <Label fx:id="lb_manufacturer" text="Manufacturer" GridPane.rowIndex="1" />
                 <TextField fx:id="txt_manufacturer" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <Label text="Item Type" GridPane.rowIndex="2" />
+                <Label fx:id="lb_itemType" text="Item Type" GridPane.rowIndex="2" />
                 <ChoiceBox fx:id="itemBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
               </children>
             </GridPane>
@@ -53,25 +53,25 @@
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
               </columnResizePolicy>
             </TableView>
-            <Label layoutX="64.0" layoutY="123.0" prefHeight="38.0" prefWidth="122.0" text="Existing Products" />
+            <Label fx:id="lb_existingProduct" layoutX="64.0" layoutY="123.0" prefHeight="38.0" prefWidth="122.0" text="Existing Products" />
           </children>
         </AnchorPane>
       </content>
     </Tab>
-    <Tab text="Produce">
+    <Tab fx:id="tab_produce" text="Produce">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
           <children>
             <ListView layoutX="14.0" layoutY="45.0" prefHeight="200.0" prefWidth="331.0" />
-            <Label layoutX="29.0" layoutY="24.0" text="Choose Product" />
+            <Label fx:id="lb_chooseProduct" layoutX="29.0" layoutY="24.0" text="Choose Product" />
             <ComboBox fx:id="quantityBox" layoutX="368.0" layoutY="66.0" prefWidth="150.0" />
-            <Label layoutX="388.0" layoutY="45.0" text="Choose Quantity" />
+            <Label fx:id="lb_chooseQuantity" layoutX="388.0" layoutY="45.0" text="Choose Quantity" />
             <Button fx:id="recordProd" layoutX="372.0" layoutY="214.0" mnemonicParsing="false" text="Record Production" />
           </children>
         </AnchorPane>
       </content>
     </Tab>
-    <Tab text="Production Log">
+    <Tab fx:id="tab_productionLog" text="Production Log">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
           <children>

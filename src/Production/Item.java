@@ -1,4 +1,7 @@
 package Production;
+/** @Author Louis Sze */
+
+// interface of item with getters and setters
 
 public interface Item {
   int getID();
