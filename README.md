@@ -6,8 +6,10 @@ OOP Project
 Connecting GUI with the Database
 
 ## Documentation
-JavaDoc
+JavaDoc 
 
+ * https://noblecodemonkeys.com/how-to-handle-javafx-button-click-events/
+ * https://www.tutorialspoint.com/jdbc/jdbc-insert-records.htm
 ## Diagrams
 
 

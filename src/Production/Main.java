@@ -22,10 +22,7 @@ public class Main extends Application {
     primaryStage.show();
   }
 
-  /**
-   *
-   * @param args Stores array of string which stores arguments passed by the command line
-   */
+  /** @param args Stores array of string which stores arguments passed by the command line */
   public static void main(String[] args) {
     launch(args);
   }
