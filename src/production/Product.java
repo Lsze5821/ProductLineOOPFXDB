@@ -1,8 +1,15 @@
-package Production;
-/** @Author Louis Sze */
+package production;
+/**
+ *  @Author Louis Sze
+ */
+
 abstract class Product implements Item {
+
+  /**
+   * @brief Abstract class product that implements items
+   */
   // fields for the Abstract Product class
-  int id;
+  private int id;
   ItemType type;
   String manufacturer;
   String name;
@@ -23,7 +30,7 @@ abstract class Product implements Item {
   }
 
   public ItemType getType() {
-    return this.type;
+    return type;
   }
 
   public void setType(ItemType type) {
@@ -46,8 +53,11 @@ abstract class Product implements Item {
   @Override
   public void setName(String name) {
     this.name = name;
-  }
-  // to string method that converts the data type and returns it as a string
+}
+  /**
+   * To string method that returns variables as a string
+   * @return name, manufacturer, type
+   */
   public String toString() {
     return "Name: " + name + "\n" + "Manufacturer: " + manufacturer + "\n" + "Type: " + type;
   }

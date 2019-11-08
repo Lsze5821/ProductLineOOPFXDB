@@ -1,7 +1,9 @@
-package Production;
+package production;
 /** @Author Louis Sze */
 
-/** Multimedia Control interface, Default abstract with methods and no body. */
+/**
+ * @brief Multimedia Control interface, Default abstract with methods and no body.
+ */
 public interface MultimediaControl {
 
   void play();

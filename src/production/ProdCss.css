@@ -2,31 +2,32 @@
   -fx-background-image: url("background.jpg");
 }
 
-#lb_productName {
+#lbProductName {
   -fx-text-fill: white;
 }
 
-#lb_manufacturer {
+#lbManufacturer {
   -fx-text-fill: white;
 }
 
-#lb_itemType {
+#lbItemType {
   -fx-text-fill: white;
 }
 
-#lb_existingProduct {
+#lbExistingProduct {
   -fx-text-fill: white;
 }
 
-#tb_existingProd {
+#tbExistingProd {
   -fx-text-fill: black;
+  -fx-font-size: 14px;
 }
 
-#lb_chooseProduct {
+#lbChooseProduct {
   -fx-text-fill: white;
 }
 
-#lb_chooseQuantity {
+#lbChooseQuantity {
   -fx-text-fill: white;
 }
 
@@ -39,21 +40,24 @@
   -fx-text-fill: black;
 }
 
-#tab_produce {
+#tabProduce {
   -fx-font-weight: bold;
   -fx-font-size: 14px;
 }
 
-#tab_productionLog {
+#tabProductionLog {
   -fx-font-weight: bold;
   -fx-font-size: 14px;
 }
 
-#tab_productLine {
+#tabProductLine {
   -fx-font-weight: bold;
   -fx-font-size: 14px;
 }
 #productionLog{
+  -fx-font-size: 14px;
+}
+#lvChooseProduct{
   -fx-font-size: 14px;
 }
 

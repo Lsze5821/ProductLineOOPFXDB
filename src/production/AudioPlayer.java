@@ -1,13 +1,23 @@
-package Production;
-/** @Author Louis Sze */
+package production;
+/**
+ * @Author Louis Sze
+ *
+ * @brief This it he audio player class that extends products implementing multimedia control.
+ */
 public class AudioPlayer extends Product implements MultimediaControl {
 
   // fields for audio player that extends product and implements multimedia control
-  String supportedAudioformats;
+  private String supportedAudioFormats;
+  private String supportedPlaylistFormats;
 
-  String supportedPlaylistformats;
-
-  // constructor for audio player
+  /**
+   * AudioPlayer constructor passing 4 parameters
+   *
+   * @param name name of product
+   * @param manufacturer manufacturer of product
+   * @param supportedAudioFormats format for supported audio
+   * @param supportedPlaylistFormats format for playlists
+   */
   AudioPlayer(
       String name,
       String manufacturer,
@@ -16,10 +26,18 @@ public class AudioPlayer extends Product implements MultimediaControl {
     super(name, manufacturer, ItemType.AUDIO);
     this.name = name;
     this.manufacturer = manufacturer;
-    this.supportedAudioformats = supportedAudioFormats;
-    this.supportedPlaylistformats = supportedPlaylistFormats;
+    this.supportedAudioFormats = supportedAudioFormats;
+    this.supportedPlaylistFormats = supportedPlaylistFormats;
   }
-  // methods for audio player
+
+  @Override
+  public void setID(int id) {}
+
+  /**
+   * Audio Player methods functionality stop, play, next, previous.
+   *
+   * @return ID
+   */
   @Override
   public int getID() {
     return 0;
@@ -41,8 +59,11 @@ public class AudioPlayer extends Product implements MultimediaControl {
     System.out.println("Previous");
   }
 
-  // to string method that converts the value to string and returns it as a string
-
+  /**
+   * to string method that converts the value to string
+   *
+   * @return name , manufacturer, type, supportedAudioFormats, supportedPlaylistFormats
+   */
   public String toString() {
     return "Name: "
         + name
@@ -54,9 +75,9 @@ public class AudioPlayer extends Product implements MultimediaControl {
         + type
         + " \n"
         + "Supported Audio Formats: "
-        + supportedAudioformats
+        + supportedAudioFormats
         + "\n"
         + "Supported Playlist Formats: "
-        + supportedPlaylistformats;
+        + supportedPlaylistFormats;
   }
 }
