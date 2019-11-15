@@ -170,7 +170,8 @@ public class ProductionController {
         // using the iterator as the product id for testing
         System.out.println(pr.toString());
         System.out.println("Product Recorded");
-        productionLog.setText(pr.toString());
+        productionLog.appendText(pr.toString());
+        productionLog.appendText("\n");
         // Converting java date and sql date
         java.util.Date myDate = new java.util.Date(String.valueOf(pr.getDateProduced()));
         java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
