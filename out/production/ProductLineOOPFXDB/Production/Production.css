@@ -30,14 +30,28 @@
   -fx-text-fill: black;
   -fx-font-size: 16px;
 }
-#produceLabels{
+#produceLabels1{
+  -fx-text-fill: white;
+  -fx-font-size: 16px;
+}#produceLabels2{
+   -fx-text-fill: white;
+   -fx-font-size: 16px;
+ }#produceLabels3{
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+  }
+#employeeLabel1{
+  -fx-text-fill: white;
+  -fx-font-size: 16px;
+}#employeeLabel2{
+   -fx-text-fill: white;
+   -fx-font-size: 16px;
+ }
+#employeeLabel3{
   -fx-text-fill: white;
   -fx-font-size: 16px;
 }
-#employeeLabel{
-  -fx-text-fill: white;
-  -fx-font-size: 16px;
-}
+
 
 #recordProd {
   -fx-text-fill: white;

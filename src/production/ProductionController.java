@@ -49,6 +49,10 @@ public class ProductionController {
   @FXML private TextArea accountTextArea;
   @FXML private Label error1;
   @FXML private Label error2;
+  @FXML private Label productError;
+  @FXML private Label manuError;
+  @FXML private Label itemError;
+  @FXML private Label selectError;
 
   /**
    * Initialize starts when program is running, calls comboBox, itemBox, initializeDB, popTableview,
@@ -126,28 +130,68 @@ public class ProductionController {
     String typeText = txtProductName.getText();
     String manuText = txtManufacturer.getText();
     ItemType itemChoice = itemBox.getValue();
-    System.out.println("Product Added");
+
     /*SQL statement using prepared statement to set string from the textfield and insert it into the
      * database
+     *
+     * if statements to check for errors of empty fields
      */
-    try {
-      // inserting the data into the database
-      String sql = "INSERT INTO Product(name, manufacturer, type) VALUES ( ?,?,?)";
-      PreparedStatement addProd = conn.prepareStatement(sql);
-      addProd.setString(1, typeText);
-      addProd.setString(2, manuText);
-      addProd.setString(3, itemChoice.toString());
-      addProd.executeUpdate();
 
-      // adding products to observable array list and displaying into the table
-      productLine.add(new Widget(typeText, manuText, itemChoice));
-      System.out.println(productLine);
+    if (txtProductName.getText().equals("")
+        && txtManufacturer.getText().equals("")
+        && itemChoice == null) {
+      productError.setText("Product Name *");
+      manuError.setText("Manufacturer *");
+      itemError.setText("Select Item *");
+    } else if (txtProductName.getText().equals("") && txtManufacturer.getText().equals("")) {
+      productError.setText("Product Name *");
+      manuError.setText("Manufacturer *");
+      itemError.setText("");
+    } else if (txtManufacturer.getText().equals("") && itemChoice == null) {
+      productError.setText("");
+      manuError.setText("Manufacturer *");
+      itemError.setText("Select Item *");
+    } else if (txtProductName.getText().equals("") && itemChoice == null) {
+      manuError.setText("");
+      productError.setText("Product Name *");
+      itemError.setText("Select Item *");
+    } else if (txtProductName.getText().equals("")) {
+      manuError.setText("");
+      itemError.setText("");
+      productError.setText("Product Name *");
+    } else if (txtManufacturer.getText().equals("")) {
+      productError.setText("");
+      itemError.setText("");
+      manuError.setText("Manufacturer *");
+    } else if (itemChoice == null) {
+      productError.setText("");
+      manuError.setText("");
+      itemError.setText("Select Item *");
+    } else {
+      try {
+        productError.setText("");
+        manuError.setText("");
+        itemError.setText("");
+        // inserting the data into the database
+        String sql = "INSERT INTO Product(name, manufacturer, type) VALUES ( ?,?,?)";
+        PreparedStatement addProd = conn.prepareStatement(sql);
+        addProd.setString(1, typeText);
+        addProd.setString(2, manuText);
+        addProd.setString(3, itemChoice.toString());
+        addProd.executeUpdate();
 
-      /* clear() resets the text field back to an empty field */
-      txtManufacturer.clear();
-      txtProductName.clear();
-    } catch (Exception ex) {
-      ex.printStackTrace();
+        // adding products to observable array list and displaying into the table
+        productLine.add(new Widget(typeText, manuText, itemChoice));
+        System.out.println("Product Added");
+        System.out.println(productLine);
+
+        /* clear() resets the text field back to an empty field */
+        txtManufacturer.clear();
+        txtProductName.clear();
+        itemBox.setValue(null);
+      } catch (Exception ex) {
+        ex.printStackTrace();
+      }
     }
   }
   /**
@@ -158,9 +202,10 @@ public class ProductionController {
    */
   @FXML
   private void recordProdButton(ActionEvent event) {
-
+    if(lvChooseProduct.getSelectionModel().getSelectedItems()!=null){
     try {
       // pulls data from the list view
+      selectError.setText("");
       Product productProduced = lvChooseProduct.getSelectionModel().getSelectedItem();
       int numProduced = 0;
       try {
@@ -173,18 +218,18 @@ public class ProductionController {
         System.out.println("Error String");
       }
 
-      int itemCount = 0;
+      int itemCount = 1;
       // sql statement that populates the production record table
       String sql = "INSERT INTO PRODUCTIONRECORD(PRODUCT_ID,SERIAL_NUM,DATE_PRODUCED)VALUES(?,?,?)";
       PreparedStatement preparedStatement = conn.prepareStatement(sql);
       System.out.println("Product Recorded");
+      // Getting the Id from Product and implementing it to Production Record
       int cellID = lvChooseProduct.getSelectionModel().getSelectedIndex();
       Product idProduct = productLine.get(cellID);
       int newId = idProduct.getId();
 
-      for (int prodProduce = 0; prodProduce < numProduced; prodProduce++) {
+      for (int prodProduce = 0; prodProduce < numProduced + 1; prodProduce++) {
         ProductionRecord prodRec = new ProductionRecord(productProduced, itemCount++);
-
         // using the iterator as the product id for testing
         // System.out.println(prodRec.toString());
         // repopulates the table
@@ -200,7 +245,9 @@ public class ProductionController {
         preparedStatement.executeUpdate();
       }
     } catch (NullPointerException | SQLException e) {
-      e.printStackTrace();
+       e.printStackTrace();
+    }}else{
+      selectError.setText("Select Product *");
     }
   }
 
@@ -211,6 +258,7 @@ public class ProductionController {
    */
   @FXML
   void createAccBtn(ActionEvent event) {
+    // if loops to check if the text fields are empty
     if (passwordTf.getText().equals("") && userNameTf.getText().equals("")) {
       error1.setText("Invalid User Name *");
       error2.setText("Invalid Password *");
@@ -232,7 +280,7 @@ public class ProductionController {
     }
   }
 
-  /**  method for populating the table view columns */
+  /** method for populating the table view columns */
   private void loadProduct() {
     tbcProdName.setCellValueFactory(new PropertyValueFactory<>("name"));
     tbcManufacturer.setCellValueFactory(new PropertyValueFactory<>("manufacturer"));
