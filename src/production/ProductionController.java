@@ -134,7 +134,7 @@ public class ProductionController {
     /*SQL statement using prepared statement to set string from the textfield and insert it into the
      * database
      *
-     * if statements to check for errors of empty fields
+     * nested if statements to check for errors of empty fields
      */
 
     if (txtProductName.getText().equals("")
@@ -202,12 +202,16 @@ public class ProductionController {
    */
   @FXML
   private void recordProdButton(ActionEvent event) {
-    if (lvChooseProduct.getSelectionModel().getSelectedItems() != null) {
+
+    if (lvChooseProduct.getSelectionModel().isEmpty()) {
+      selectError.setText("Select Product *");
+    } else if (lvChooseProduct.getSelectionModel().getSelectedItems() != null) {
+      selectError.setText("");
       try {
         // pulls data from the list view
         selectError.setText("");
         Product productProduced = lvChooseProduct.getSelectionModel().getSelectedItem();
-        int numProduced = 0;
+        int numProduced = 1;
         try {
           // converting a the value to string
           String numProducedString = String.valueOf(quantityBox.getValue());
@@ -228,13 +232,10 @@ public class ProductionController {
         int cellID = lvChooseProduct.getSelectionModel().getSelectedIndex();
         Product idProduct = productLine.get(cellID);
         int newId = idProduct.getId();
-
-        for (int prodProduce = 0; prodProduce < numProduced + 1; prodProduce++) {
+        for (int prodProduce = 0; prodProduce < numProduced; prodProduce++) {
           ProductionRecord prodRec = new ProductionRecord(productProduced, itemCount++);
           // using the iterator as the product id for testing
           // System.out.println(prodRec.toString());
-          // repopulates the table
-          reloadProductLog();
           // Converting java date and time stamp
           java.util.Date myDate = new java.util.Date(String.valueOf(prodRec.getDateProduced()));
           Timestamp CurrentDate = new java.sql.Timestamp(myDate.getTime());
@@ -245,10 +246,12 @@ public class ProductionController {
           preparedStatement.setTimestamp(3, CurrentDate);
           preparedStatement.executeUpdate();
         }
+        // repopulate ProductLog
+        reloadProductLog();
       } catch (NullPointerException | SQLException e) {
         e.printStackTrace();
       }
-    } else {
+    } else if (lvChooseProduct.getSelectionModel().isEmpty()) {
       selectError.setText("Select Product *");
     }
   }
@@ -265,8 +268,10 @@ public class ProductionController {
       error1.setText("Invalid User Name *");
       error2.setText("Invalid Password *");
     } else if (passwordTf.getText().equals("")) {
+      error1.setText("");
       error2.setText("Invalid Password *");
     } else if (userNameTf.getText().equals("")) {
+      error2.setText("");
       error1.setText("Invalid User Name *");
 
     } else {
