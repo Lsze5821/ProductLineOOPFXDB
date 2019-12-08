@@ -17,6 +17,7 @@ public class Employee {
 
   /**
    * Employee constructor
+   *
    * @param name accepting the password as a string for the constructor
    * @param password accepting the password as a string for the constructor
    */
@@ -36,6 +37,11 @@ public class Employee {
     }
   }
 
+  /**
+   * Setting username with first and last
+   *
+   * @param name Single parameter containing name
+   */
   private void setUsername(String name) {
 
     Pattern firstNLast = Pattern.compile("\\s(.*)", Pattern.MULTILINE);
@@ -46,6 +52,12 @@ public class Employee {
     this.username = initials.toLowerCase();
   }
 
+  /**
+   * Boolean method to check name
+   *
+   * @param name single string parameter that checks the name
+   * @return returns the checked name
+   */
   private boolean checkName(String name) {
     Pattern checkPattern = Pattern.compile("\\s");
     Matcher patternMatch = checkPattern.matcher(name);
@@ -53,6 +65,11 @@ public class Employee {
     return check;
   }
 
+  /**
+   * Email method for checking, then used to create email.
+   *
+   * @param name single parameter contianing the string name.
+   */
   private void setEmail(String name) {
 
     Pattern firstNameCheck = Pattern.compile("(.*)\\s", Pattern.MULTILINE);
@@ -68,14 +85,24 @@ public class Employee {
     this.email = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@oracleacademy.Test";
   }
 
+  /**
+   * Method for checking password
+   *
+   * @param password Contains a string password
+   * @return the matched password
+   */
   private boolean isValidPassword(String password) {
 
     final String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\W).*$";
-    final Pattern pattern = Pattern.compile(regex);
-    final Matcher matcher = pattern.matcher(password);
-    return matcher.matches();
+    final Pattern regexCD = Pattern.compile(regex);
+    final Matcher matched = regexCD.matcher(password);
+    return matched.matches();
   }
 
+  /**
+   * toString method that
+   * @return the toString method containing a concatenating  string
+   */
   public String toString() {
     return "Employee Details"
         + "\n"
@@ -85,7 +112,7 @@ public class Employee {
         + "Username: "
         + username
         + "\n"
-        + "Email :"
+        + "Email: "
         + email
         + "\n"
         + "Initial Password: "
