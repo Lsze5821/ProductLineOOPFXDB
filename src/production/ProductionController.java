@@ -202,51 +202,53 @@ public class ProductionController {
    */
   @FXML
   private void recordProdButton(ActionEvent event) {
-    if(lvChooseProduct.getSelectionModel().getSelectedItems()!=null){
-    try {
-      // pulls data from the list view
-      selectError.setText("");
-      Product productProduced = lvChooseProduct.getSelectionModel().getSelectedItem();
-      int numProduced = 0;
+    if (lvChooseProduct.getSelectionModel().getSelectedItems() != null) {
       try {
-        // converting a the value to string
-        String numProducedString = String.valueOf(quantityBox.getValue());
-        // converting it back to int
-        numProduced = Integer.parseInt(numProducedString);
-        // numProduced = quantityBox.getValue(); // this will come from the combobox in the UI
-      } catch (java.lang.ClassCastException exception) {
-        System.out.println("Error String");
+        // pulls data from the list view
+        selectError.setText("");
+        Product productProduced = lvChooseProduct.getSelectionModel().getSelectedItem();
+        int numProduced = 0;
+        try {
+          // converting a the value to string
+          String numProducedString = String.valueOf(quantityBox.getValue());
+          // converting it back to int
+          numProduced = Integer.parseInt(numProducedString);
+          // numProduced = quantityBox.getValue(); // this will come from the combobox in the UI
+        } catch (java.lang.ClassCastException exception) {
+          System.out.println("Error String");
+        }
+
+        int itemCount = 1;
+        // sql statement that populates the production record table
+        String sql =
+            "INSERT INTO PRODUCTIONRECORD(PRODUCT_ID,SERIAL_NUM,DATE_PRODUCED)VALUES(?,?,?)";
+        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+        System.out.println("Product Recorded");
+        // Getting the Id from Product and implementing it to Production Record
+        int cellID = lvChooseProduct.getSelectionModel().getSelectedIndex();
+        Product idProduct = productLine.get(cellID);
+        int newId = idProduct.getId();
+
+        for (int prodProduce = 0; prodProduce < numProduced + 1; prodProduce++) {
+          ProductionRecord prodRec = new ProductionRecord(productProduced, itemCount++);
+          // using the iterator as the product id for testing
+          // System.out.println(prodRec.toString());
+          // repopulates the table
+          reloadProductLog();
+          // Converting java date and time stamp
+          java.util.Date myDate = new java.util.Date(String.valueOf(prodRec.getDateProduced()));
+          Timestamp CurrentDate = new java.sql.Timestamp(myDate.getTime());
+
+          // preparedStatements that stores the data into the database
+          preparedStatement.setInt(1, newId);
+          preparedStatement.setString(2, prodRec.getSerialNumber());
+          preparedStatement.setTimestamp(3, CurrentDate);
+          preparedStatement.executeUpdate();
+        }
+      } catch (NullPointerException | SQLException e) {
+        e.printStackTrace();
       }
-
-      int itemCount = 1;
-      // sql statement that populates the production record table
-      String sql = "INSERT INTO PRODUCTIONRECORD(PRODUCT_ID,SERIAL_NUM,DATE_PRODUCED)VALUES(?,?,?)";
-      PreparedStatement preparedStatement = conn.prepareStatement(sql);
-      System.out.println("Product Recorded");
-      // Getting the Id from Product and implementing it to Production Record
-      int cellID = lvChooseProduct.getSelectionModel().getSelectedIndex();
-      Product idProduct = productLine.get(cellID);
-      int newId = idProduct.getId();
-
-      for (int prodProduce = 0; prodProduce < numProduced + 1; prodProduce++) {
-        ProductionRecord prodRec = new ProductionRecord(productProduced, itemCount++);
-        // using the iterator as the product id for testing
-        // System.out.println(prodRec.toString());
-        // repopulates the table
-        reloadProductLog();
-        // Converting java date and time stamp
-        java.util.Date myDate = new java.util.Date(String.valueOf(prodRec.getDateProduced()));
-        Timestamp CurrentDate = new java.sql.Timestamp(myDate.getTime());
-
-        // preparedStatements that stores the data into the database
-        preparedStatement.setInt(1, newId);
-        preparedStatement.setString(2, prodRec.getSerialNumber());
-        preparedStatement.setTimestamp(3, CurrentDate);
-        preparedStatement.executeUpdate();
-      }
-    } catch (NullPointerException | SQLException e) {
-       e.printStackTrace();
-    }}else{
+    } else {
       selectError.setText("Select Product *");
     }
   }
