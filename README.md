@@ -152,15 +152,16 @@ Linking Jar file:
             * getManufacturer( );           * that returns a string.
                                             */
              ```
-         * Created an abstract type called Product. This abstract will implement the Item class.
-         * Added fields to the abstract type and the fields from the product class.
+             
+          * Created an abstract type called Product. This abstract will implement the Item class.
+          * Added fields to the abstract type and the fields from the product class.
           
             ```
             * int id;
             * String type;
             * String manufacturer;
             * String name;
-           ```
+          
           
           * Added a constructor that will take name of the product and set to field variables name.
           * Created a class called Widget, that will extends the Product class.
