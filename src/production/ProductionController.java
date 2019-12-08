@@ -276,6 +276,7 @@ public class ProductionController {
       String newPassword = passwordTf.getText();
       Employee employee = new Employee(newUsername, newPassword);
       accountTextArea.setText(employee.toString());
+      accountTextArea.setEditable(false);
       System.out.println(employee.toString());
       userNameTf.clear();
       passwordTf.clear();
@@ -328,6 +329,7 @@ public class ProductionController {
             new ProductionRecord(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getTimestamp(4));
         // production Log population
         productionLog.appendText(productionRecLog.toString());
+        productionLog.setEditable(false);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -339,6 +341,7 @@ public class ProductionController {
    */
   private void reloadProductLog() {
     productionLog.clear();
+
     loadProductLog();
   }
 }
