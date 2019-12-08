@@ -169,12 +169,12 @@ Linking Jar file:
     * Issue 2 - Audio Player
 
         * Created an Interface called MultimediaControl and methods:
-         ```
+          ```
             * play( );
             * stop( );
             * previous( );
             * next( );
-       ```
+          ```
         * Created a Concrete class called AudioPlayer.
             * This is a subclass of Product and Implements the MultimediaControl interface.
         * This class will have 2 fields:
