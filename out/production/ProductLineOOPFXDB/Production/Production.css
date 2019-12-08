@@ -1,0 +1,119 @@
+.root {
+  -fx-background-image: url("background.jpg");
+}
+
+#lbProductName {
+  -fx-text-fill: white;
+  -fx-font-size: 16px;
+
+}
+
+#lbManufacturer {
+  -fx-text-fill: white;
+  -fx-font-size: 16px;
+
+}
+
+#lbItemType {
+  -fx-text-fill: white;
+  -fx-font-size: 16px;
+
+}
+
+#lbExistingProduct {
+  -fx-text-fill: white;
+  -fx-font-size: 16px;
+
+}
+
+#tbExistingProd {
+  -fx-text-fill: black;
+  -fx-font-size: 16px;
+}
+#produceLabels{
+  -fx-text-fill: white;
+  -fx-font-size: 16px;
+}
+#employeeLabel{
+  -fx-text-fill: white;
+  -fx-font-size: 16px;
+}
+
+#recordProd {
+  -fx-text-fill: white;
+  -fx-font-family: "Arial Narrow";
+  -fx-font-weight: bold;
+  -fx-font-size: 15px;
+  -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+#searchBtn{
+  -fx-text-fill: white;
+  -fx-font-family: "Arial Narrow";
+  -fx-font-weight: bold;
+  -fx-font-size: 15px;
+  -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+#createAccBtn{
+  -fx-text-fill: white;
+  -fx-font-family: "Arial Narrow";
+  -fx-font-weight: bold;
+  -fx-font-size: 15px;
+  -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+#itemBox {
+  -fx-text-fill: black;
+}
+
+#tabProduce {
+  -fx-font-weight: bold;
+  -fx-font-size: 16px;
+}
+
+#tabProductionLog {
+  -fx-font-weight: bold;
+  -fx-font-size: 16px;
+}
+#tabEmployee{
+  -fx-font-weight: Bold;
+  -fx-font-size: 16;
+}
+
+#tabProductLine {
+  -fx-font-weight: bold;
+  -fx-font-size: 14px;
+}
+#productionLog{
+  -fx-font-size: 14px;
+}
+#lvChooseProduct{
+  -fx-font-size: 16px;
+}
+#accountTextArea{
+  -fx-font-size: 18px;
+}
+.label {
+  -fx-font-size: 14px;
+  -fx-font-weight: bold;
+}
+
+#welcome-text {
+  -fx-font-size: 32px;
+  -fx-font-family: "Arial White";
+  -fx-fill: #818181;
+  -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.7), 6, 0.0, 0, 2);
+}
+
+#addProduct {
+  -fx-text-fill: white;
+  -fx-font-family: "Arial Narrow";
+  -fx-font-weight: bold;
+  -fx-font-size: 15px;
+  -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+.button:hover {
+  -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+}
