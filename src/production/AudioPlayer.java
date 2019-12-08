@@ -1,10 +1,11 @@
 package production;
 /**
- * This it he audio player class that extends products implementing multimedia control, contains constructors and methods for multimedia controls.
+ * This it he audio player class that extends products implementing multimedia control, contains
+ * constructors and methods for multimedia controls.
  *
  * @author Louis Sze
- *
  */
+
 public class AudioPlayer extends Product implements MultimediaControl {
 
   // fields for audio player that extends product and implements multimedia control
@@ -12,7 +13,7 @@ public class AudioPlayer extends Product implements MultimediaControl {
   private String supportedPlaylistFormats;
 
   /**
-   * AudioPlayer constructor passing 4 parameters
+   * AudioPlayer constructor passing 4 parameters.
    *
    * @param name name of product
    * @param manufacturer manufacturer of product
@@ -32,7 +33,9 @@ public class AudioPlayer extends Product implements MultimediaControl {
   }
 
   @Override
-  public void setID(int id) {}
+  public void setID(int id) {
+
+  }
 
   /**
    * Audio Player methods functionality stop, play, next, previous.
@@ -61,7 +64,7 @@ public class AudioPlayer extends Product implements MultimediaControl {
   }
 
   /**
-   * to string method that converts the value to string
+   * to string method that converts the value to string.
    *
    * @return name , manufacturer, type, supportedAudioFormats, supportedPlaylistFormats
    */
