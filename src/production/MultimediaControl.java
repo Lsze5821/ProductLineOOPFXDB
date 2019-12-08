@@ -4,6 +4,7 @@ package production;
  *
  * @author Louis Sze
  */
+
 public interface MultimediaControl {
 
   void play();

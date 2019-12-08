@@ -1,11 +1,11 @@
 package production;
+
+import java.util.Date;
 /**
- * Production record class that records products
+ * Production record class that records products.
  *
  * @author Louis Sze
- *
  */
-import java.util.Date;
 
 public class ProductionRecord {
   // fields for production class
@@ -15,7 +15,7 @@ public class ProductionRecord {
   private Date dateProduced;
 
   /**
-   * constructor with one parameter for production record
+   * constructor with one parameter for production record.
    *
    * @param productID returning product ID
    */
@@ -27,7 +27,7 @@ public class ProductionRecord {
   }
 
   /**
-   * overload production Record with 4 parameters
+   * overload production Record with 4 parameters.
    *
    * @param productionNumber the production number
    * @param productID Product Id
@@ -42,7 +42,7 @@ public class ProductionRecord {
   }
 
   /**
-   * Overload Constructor with 2 parameters
+   * Overload Constructor with 2 parameters.
    *
    * @param product Products
    * @param counter Counter for id formatting
@@ -56,7 +56,7 @@ public class ProductionRecord {
   }
 
   /**
-   * Setters and Getters
+   * Setters and Getters.
    *
    * @return productionNumber, productID, serialNumber, dateProduced
    */
@@ -92,9 +92,8 @@ public class ProductionRecord {
     this.dateProduced = dateProduced;
   }
 
-
   /**
-   * toString Method that converts data types to strings
+   * toString Method that converts data types to strings.
    *
    * @return productionNumber, productId, serialNumber, dateProduced
    */
@@ -108,6 +107,6 @@ public class ProductionRecord {
         + serialNumber
         + " Date: "
         + dateProduced
-        +"\n";
+        + "\n";
   }
 }

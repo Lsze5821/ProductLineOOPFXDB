@@ -7,14 +7,15 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * This is the main class that starts the fxml loader and instances
+ * This is the main class that starts the fxml loader and instances.
  *
  * @author Louis Sze
- *
  */
 public class Main extends Application {
 
   /**
+   * This method starts the program and executes the fxml file for the gui.
+   *
    * @param primaryStage The primary stage.
    * @throws Exception Any problem with the code.
    */
@@ -26,7 +27,11 @@ public class Main extends Application {
     primaryStage.show();
   }
 
-  /** @param args Stores array of string which stores arguments passed by the command line */
+  /**
+   * Static main method used to create objects.
+   *
+   * @param args Stores array of string which stores arguments passed by the command line
+   */
   public static void main(String[] args) {
     launch(args);
   }

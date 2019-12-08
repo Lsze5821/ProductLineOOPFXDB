@@ -1,10 +1,12 @@
 package production;
 /**
- * Item Interface with getters and setters
+ * Item Interface with getters and setters.
  *
  * @author Louis Sze
  */
+
 public interface Item {
+
   void setID(int id);
 
   int getID();

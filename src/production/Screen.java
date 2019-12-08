@@ -1,9 +1,10 @@
 package production;
 /**
- * Screen class that implements a set of public methods of interface ScreenSpecs
+ * Screen class that implements a set of public methods of interface ScreenSpecs.
  *
  * @author Louis Sze
  */
+
 public class Screen implements ScreenSpec {
   // fields for screen class containing specs
   private String resolution;
@@ -11,7 +12,7 @@ public class Screen implements ScreenSpec {
   private int responseTime;
 
   /**
-   * Constructor for screen passing 3 parameters
+   * Constructor for screen passing 3 parameters.
    *
    * @param resolution screen's resolution
    * @param refreshRate screen's refresh rates
@@ -24,7 +25,7 @@ public class Screen implements ScreenSpec {
   }
 
   /**
-   * Getters
+   * Getters.
    *
    * @return resolution, refresh rate, response time
    */

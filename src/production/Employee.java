@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Employee class that contains the name, user, password, and email
+ * Employee class that contains the name, user, password, and email.
  *
  * @author Louis Sze
  */
@@ -16,7 +16,7 @@ public class Employee {
   private String email = "user@oracleacademy.Test";
 
   /**
-   * Employee constructor
+   * Employee constructor passing two parameters.
    *
    * @param name accepting the password as a string for the constructor
    * @param password accepting the password as a string for the constructor
@@ -38,7 +38,7 @@ public class Employee {
   }
 
   /**
-   * Setting username with first and last
+   * Setting username with first and last.
    *
    * @param name Single parameter containing name
    */
@@ -53,7 +53,7 @@ public class Employee {
   }
 
   /**
-   * Boolean method to check name
+   * Boolean method to check name.
    *
    * @param name single string parameter that checks the name
    * @return returns the checked name
@@ -86,7 +86,7 @@ public class Employee {
   }
 
   /**
-   * Method for checking password
+   * Method for checking password if it matches regex code.
    *
    * @param password Contains a string password
    * @return the matched password
@@ -100,8 +100,9 @@ public class Employee {
   }
 
   /**
-   * toString method that
-   * @return the toString method containing a concatenating  string
+   * toString method that returns String.
+   *
+   * @return the toString method containing a concatenating string
    */
   public String toString() {
     return "Employee Details"

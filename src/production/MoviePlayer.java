@@ -4,6 +4,7 @@ package production;
  *
  * @author Louis Sze
  */
+
 public class MoviePlayer extends Product implements MultimediaControl {
 
   // fields fore movie player extending product and implements multimedia control
@@ -11,7 +12,7 @@ public class MoviePlayer extends Product implements MultimediaControl {
   private MonitorType monitorType;
 
   /**
-   * Constructor passing 4 parameters for movie player
+   * Constructor passing 4 parameters for movie player.
    *
    * @param name product name
    * @param manufacturer product manufacturer
@@ -48,7 +49,7 @@ public class MoviePlayer extends Product implements MultimediaControl {
   // to string method that converts the value to string value and returns as a string value
 
   /**
-   * a toString method that converts the data type and returns it as a string
+   * a toString method that converts the data type and returns it as a string.
    *
    * @return name, manufacturer, type, screen, and monitor type
    */

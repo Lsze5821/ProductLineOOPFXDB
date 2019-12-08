@@ -4,6 +4,7 @@ package production;
  *
  * @author Louis Sze
  */
+
 abstract class Product implements Item {
 
   // fields for the Abstract Product class
@@ -13,11 +14,13 @@ abstract class Product implements Item {
   String name;
   /* constructor for product initializing object of the class with defined value instead of using a
   null value*/
-  Product(String name, String manufacturer, ItemType type){
-   this.name = name;
-   this.manufacturer = manufacturer;
-   this.type = type;
+
+  Product(String name, String manufacturer, ItemType type) {
+    this.name = name;
+    this.manufacturer = manufacturer;
+    this.type = type;
   }
+
   Product(int id, String name, String manufacturer, ItemType type) {
     this.id = id;
     this.name = name;
@@ -63,7 +66,7 @@ abstract class Product implements Item {
   }
 
   /**
-   * To string method that returns variables as a string
+   * To string method that returns variables as a string.
    *
    * @return name, manufacturer, type
    */

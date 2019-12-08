@@ -69,7 +69,7 @@ public class ProductionController {
     recordProd.setOnAction(this::recordProdButton);
   }
 
-  /** this method populating the choice box from ItemType enum */
+  /** this method populating the choice box from ItemType enum. */
   private void loadItemBox() {
     itemBox.setItems(FXCollections.observableArrayList(ItemType.values()));
   }
@@ -92,27 +92,20 @@ public class ProductionController {
    * that goes wrong in the try.
    */
   private void initializeDB() {
-    final String H2_DRIVER = "org.h2.Driver";
-    final String DB_URL = "jdbc:h2:./res/DB";
-    final String USER = "";
-    String PASS;
-    // Connection conn;
-    // Statement stmt;
+    final String h2_Driver = "org.h2.Driver";
+    final String dB_Url = "jdbc:h2:./res/DB";
+    final String user = "";
+    String pass;
 
     try {
-      Class.forName(H2_DRIVER);
+      Class.forName(h2_Driver);
       Properties prop = new Properties();
       prop.load(new FileInputStream("res/properties"));
-      PASS = prop.getProperty("password");
+      pass = prop.getProperty("password");
       System.out.println("Connecting");
       // Opening a Connection
-      conn = DriverManager.getConnection(DB_URL, USER, PASS);
+      conn = DriverManager.getConnection(dB_Url, user, pass);
       System.out.println("Connection Successful");
-      // Executing Query
-      Statement stmt = conn.createStatement();
-      // String sql =
-      //  "INSERT INTO Product(type, manufacturer, name) VALUES ( 'AUDIO', 'Apple', 'iPod' )";
-      // stmt.executeUpdate(sql);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -172,6 +165,7 @@ public class ProductionController {
         productError.setText("");
         manuError.setText("");
         itemError.setText("");
+
         // inserting the data into the database
         String sql = "INSERT INTO Product(name, manufacturer, type) VALUES ( ?,?,?)";
         PreparedStatement addProd = conn.prepareStatement(sql);
@@ -200,6 +194,7 @@ public class ProductionController {
    *
    * @param event that runs the code for when the button is clicked.
    */
+
   @FXML
   private void recordProdButton(ActionEvent event) {
 
@@ -238,12 +233,12 @@ public class ProductionController {
           // System.out.println(prodRec.toString());
           // Converting java date and time stamp
           java.util.Date myDate = new java.util.Date(String.valueOf(prodRec.getDateProduced()));
-          Timestamp CurrentDate = new java.sql.Timestamp(myDate.getTime());
+          Timestamp currentDate = new java.sql.Timestamp(myDate.getTime());
 
           // preparedStatements that stores the data into the database
           preparedStatement.setInt(1, newId);
           preparedStatement.setString(2, prodRec.getSerialNumber());
-          preparedStatement.setTimestamp(3, CurrentDate);
+          preparedStatement.setTimestamp(3, currentDate);
           preparedStatement.executeUpdate();
         }
         // repopulate ProductLog
@@ -257,7 +252,7 @@ public class ProductionController {
   }
 
   /**
-   * creating admin user and pass
+   * creating admin user and password login information.
    *
    * @param event action when button is clicked
    */
@@ -287,7 +282,7 @@ public class ProductionController {
     }
   }
 
-  /** method for populating the table view columns */
+  /** method for populating the table view columns.*/
   private void loadProduct() {
     tbcProdName.setCellValueFactory(new PropertyValueFactory<>("name"));
     tbcManufacturer.setCellValueFactory(new PropertyValueFactory<>("manufacturer"));
@@ -302,7 +297,9 @@ public class ProductionController {
             new Widget(
                 rs.getString(2), rs.getString(4), ItemType.valueOf(rs.getString(3)), rs.getInt(1)) {
               @Override
-              public void setID(int id) {}
+              public void setID(int id) {
+
+              }
 
               @Override
               public int getID() {
@@ -314,7 +311,8 @@ public class ProductionController {
       e.printStackTrace();
     }
   }
-  /** method for populating list view */
+
+  /** method for populating list view. */
   private void loadProductList() {
     lvChooseProduct.setItems(productLine);
   }
@@ -337,7 +335,7 @@ public class ProductionController {
   }
 
   /**
-   * reload productLog method clears the table and repopulate the table in the production log view
+   * reload productLog method clears the table and repopulate the table in the production log view.
    */
   private void reloadProductLog() {
     productionLog.clear();
