@@ -35,7 +35,6 @@ public class ProductionController {
   @FXML private Button recordProd;
   @FXML private ComboBox<Integer> quantityBox;
   @FXML private ChoiceBox<ItemType> itemBox;
-  @FXML private ComboBox<ItemType> searchCb;
   @FXML private TextArea productionLog;
   @FXML private TextField userNameTf;
   @FXML private TextField passwordTf;
@@ -47,7 +46,7 @@ public class ProductionController {
   @FXML private TableColumn<?, ?> tbcItemType;
   @FXML private ObservableList<Product> productLine = FXCollections.observableArrayList();
   @FXML private ListView<Product> lvChooseProduct;
-  @FXML private TextArea accountLv;
+  @FXML private TextArea accountTextArea;
   @FXML private Label error1;
   @FXML private Label error2;
 
@@ -58,7 +57,7 @@ public class ProductionController {
   public void initialize() {
 
     loadComboBox();
-    loadTtemBox();
+    loadItemBox();
     initializeDB();
     loadProduct();
     loadProductList();
@@ -67,7 +66,7 @@ public class ProductionController {
   }
 
   /** this method populating the choice box from ItemType enum */
-  private void loadTtemBox() {
+  private void loadItemBox() {
     itemBox.setItems(FXCollections.observableArrayList(ItemType.values()));
   }
 
@@ -187,7 +186,7 @@ public class ProductionController {
         ProductionRecord prodRec = new ProductionRecord(productProduced, itemCount++);
 
         // using the iterator as the product id for testing
-        //        System.out.println(prodRec.toString());
+        // System.out.println(prodRec.toString());
         // repopulates the table
         reloadProductLog();
         // Converting java date and time stamp
@@ -205,9 +204,11 @@ public class ProductionController {
     }
   }
 
-  @FXML
-  void searchButton(ActionEvent event) {}
-
+  /**
+   * creating admin user and pass
+   *
+   * @param event action when button is clicked
+   */
   @FXML
   void createAccBtn(ActionEvent event) {
     if (passwordTf.getText().equals("") && userNameTf.getText().equals("")) {
@@ -224,14 +225,14 @@ public class ProductionController {
       String newUsername = userNameTf.getText();
       String newPassword = passwordTf.getText();
       Employee employee = new Employee(newUsername, newPassword);
-      accountLv.setText(employee.toString());
+      accountTextArea.setText(employee.toString());
       System.out.println(employee.toString());
       userNameTf.clear();
       passwordTf.clear();
     }
   }
 
-  /** @brief method for populating the table view columns */
+  /**  method for populating the table view columns */
   private void loadProduct() {
     tbcProdName.setCellValueFactory(new PropertyValueFactory<>("name"));
     tbcManufacturer.setCellValueFactory(new PropertyValueFactory<>("manufacturer"));
@@ -258,11 +259,12 @@ public class ProductionController {
       e.printStackTrace();
     }
   }
-  /** @brief method for populating list view */
+  /** method for populating list view */
   private void loadProductList() {
     lvChooseProduct.setItems(productLine);
   }
 
+  /** Production Log load method that populates the production log. */
   private void loadProductLog() {
     try {
       Statement stmt = conn.createStatement();
