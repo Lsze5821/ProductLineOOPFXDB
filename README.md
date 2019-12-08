@@ -7,15 +7,15 @@ I created this project in class and worked on it at home, it was an assignment f
 at FGCU.
 
 ## Demonstration
-**Product Tab**
+**Product Tab:** Creating new Product
 
 ![Step1](Step1.gif)
 
-**Produce Tab & Production Log**
+**Produce Tab & Production Log:** Produce Amount of Product
 
 ![Step2](Step2.gif)
 
-**Employee Tab**
+**Employee Tab:** Create Login with Full Name and Password
 
 ![Step3](Step3.gif)
 
@@ -67,7 +67,7 @@ Linking Jar file:
 ## Contributing
 
 ## Author
-* Louis Sze - Majoring in Software Engineering, B.S. at Florida Gulf Coast University.
+* Louis Sze
 
 ## License
 [BSD 3-Clause License](https://github.com/Lsze5821/ProductLineOOPFXDB/blob/master/LICENSE)
