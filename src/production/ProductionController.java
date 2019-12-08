@@ -1,10 +1,14 @@
 package production;
 
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.util.Properties;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -20,18 +25,20 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
- * @Author Louis Sze
+ * Controller class that runs the database and gui. Creating private button linked to button * id
+ * called addProduct Creating a private combobox linked to the id quantityBox
  *
- * @brief Controller class that runs the database and gui. Creating private button linked to button
- *     id called addProduct Creating a private combobox linked to the id quantityBox
+ * @author Louis Sze
  */
 public class ProductionController {
 
-  @FXML private Button addProduct;
-  @FXML private ComboBox<Integer> quantityBox;
   @FXML private Button recordProd;
+  @FXML private ComboBox<Integer> quantityBox;
   @FXML private ChoiceBox<ItemType> itemBox;
+  @FXML private ComboBox<ItemType> searchCb;
   @FXML private TextArea productionLog;
+  @FXML private TextField userNameTf;
+  @FXML private TextField passwordTf;
   @FXML private TextField txtProductName;
   @FXML private TextField txtManufacturer;
   @FXML private TableView<Product> tbExistingProd;
@@ -40,31 +47,32 @@ public class ProductionController {
   @FXML private TableColumn<?, ?> tbcItemType;
   @FXML private ObservableList<Product> productLine = FXCollections.observableArrayList();
   @FXML private ListView<Product> lvChooseProduct;
+  @FXML private TextArea accountLv;
+  @FXML private Label error1;
+  @FXML private Label error2;
 
   /**
    * Initialize starts when program is running, calls comboBox, itemBox, initializeDB, popTableview,
-   * popListView, Buttons.
+   * loadProductList, Buttons.
    */
-
-  // @Override
   public void initialize() {
 
-    comboBox();
-    itemBox();
+    loadComboBox();
+    loadTtemBox();
     initializeDB();
-    popTableView();
-    popListView();
-    addProduct.setOnAction(this::addProdButton);
+    loadProduct();
+    loadProductList();
+    loadProductLog();
     recordProd.setOnAction(this::recordProdButton);
   }
 
   /** this method populating the choice box from ItemType enum */
-  private void itemBox() {
+  private void loadTtemBox() {
     itemBox.setItems(FXCollections.observableArrayList(ItemType.values()));
   }
 
   /** This method populates the comboBox. for loop used to iterate 1-10 for the quantityBox. */
-  private void comboBox() {
+  private void loadComboBox() {
     for (int n = 1; n < 11; n++) {
       quantityBox.getItems().add(n);
       quantityBox.setEditable(true);
@@ -73,6 +81,7 @@ public class ProductionController {
   }
 
   private Connection conn;
+  private Statement stmt;
 
   /**
    * This is the where the connecting to the h2 driver is connected. H2 driver URL and the Data base
@@ -82,13 +91,19 @@ public class ProductionController {
   private void initializeDB() {
     final String H2_DRIVER = "org.h2.Driver";
     final String DB_URL = "jdbc:h2:./res/DB";
+    final String USER = "";
+    String PASS;
     // Connection conn;
     // Statement stmt;
+
     try {
       Class.forName(H2_DRIVER);
+      Properties prop = new Properties();
+      prop.load(new FileInputStream("res/properties"));
+      PASS = prop.getProperty("password");
       System.out.println("Connecting");
       // Opening a Connection
-      conn = DriverManager.getConnection(DB_URL);
+      conn = DriverManager.getConnection(DB_URL, USER, PASS);
       System.out.println("Connection Successful");
       // Executing Query
       Statement stmt = conn.createStatement();
@@ -101,8 +116,9 @@ public class ProductionController {
   }
 
   /**
-   * @brief this method adds the product inputs from the gui and inserts it to the database and
-   *     arraylist whent he button is pressed.
+   * this method adds the product inputs from the gui and inserts it to the database and arraylist
+   * when the button is pressed.
+   *
    * @param event action event listener for the button
    */
   @FXML
@@ -143,6 +159,7 @@ public class ProductionController {
    */
   @FXML
   private void recordProdButton(ActionEvent event) {
+
     try {
       // pulls data from the list view
       Product productProduced = lvChooseProduct.getSelectionModel().getSelectedItem();
@@ -153,33 +170,34 @@ public class ProductionController {
         // converting it back to int
         numProduced = Integer.parseInt(numProducedString);
         // numProduced = quantityBox.getValue(); // this will come from the combobox in the UI
-      } catch (java.lang.ClassCastException exeception) {
+      } catch (java.lang.ClassCastException exception) {
         System.out.println("Error String");
       }
 
       int itemCount = 0;
       // sql statement that populates the production record table
-      String sql =
-          "INSERT INTO PRODUCTIONRECORD(PRODUCTION_NUM,PRODUCT_ID,SERIAL_NUM,DATE_PRODUCED)VALUES(?,?,?,?)";
+      String sql = "INSERT INTO PRODUCTIONRECORD(PRODUCT_ID,SERIAL_NUM,DATE_PRODUCED)VALUES(?,?,?)";
       PreparedStatement preparedStatement = conn.prepareStatement(sql);
-      // for loop that iterates by the amount of product produced
-      for (int productionRunProduct = 0;
-          productionRunProduct < numProduced;
-          productionRunProduct++) {
-        ProductionRecord pr = new ProductionRecord(productProduced, itemCount++);
+      System.out.println("Product Recorded");
+      int cellID = lvChooseProduct.getSelectionModel().getSelectedIndex();
+      Product idProduct = productLine.get(cellID);
+      int newId = idProduct.getId();
+
+      for (int prodProduce = 0; prodProduce < numProduced; prodProduce++) {
+        ProductionRecord prodRec = new ProductionRecord(productProduced, itemCount++);
+
         // using the iterator as the product id for testing
-        System.out.println(pr.toString());
-        System.out.println("Product Recorded");
-        productionLog.appendText(pr.toString());
-        productionLog.appendText("\n");
-        // Converting java date and sql date
-        java.util.Date myDate = new java.util.Date(String.valueOf(pr.getDateProduced()));
-        java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
+        //        System.out.println(prodRec.toString());
+        // repopulates the table
+        reloadProductLog();
+        // Converting java date and time stamp
+        java.util.Date myDate = new java.util.Date(String.valueOf(prodRec.getDateProduced()));
+        Timestamp CurrentDate = new java.sql.Timestamp(myDate.getTime());
+
         // preparedStatements that stores the data into the database
-        preparedStatement.setInt(1, pr.getProductionNumber());
-        preparedStatement.setInt(2, pr.getProductID());
-        preparedStatement.setString(3, pr.getSerialNumber());
-        preparedStatement.setDate(4, sqlDate);
+        preparedStatement.setInt(1, newId);
+        preparedStatement.setString(2, prodRec.getSerialNumber());
+        preparedStatement.setTimestamp(3, CurrentDate);
         preparedStatement.executeUpdate();
       }
     } catch (NullPointerException | SQLException e) {
@@ -187,16 +205,86 @@ public class ProductionController {
     }
   }
 
+  @FXML
+  void searchButton(ActionEvent event) {}
+
+  @FXML
+  void createAccBtn(ActionEvent event) {
+    if (passwordTf.getText().equals("") && userNameTf.getText().equals("")) {
+      error1.setText("Invalid User Name *");
+      error2.setText("Invalid Password *");
+    } else if (passwordTf.getText().equals("")) {
+      error2.setText("Invalid Password *");
+    } else if (userNameTf.getText().equals("")) {
+      error1.setText("Invalid User Name *");
+
+    } else {
+      error1.setText("");
+      error2.setText("");
+      String newUsername = userNameTf.getText();
+      String newPassword = passwordTf.getText();
+      Employee employee = new Employee(newUsername, newPassword);
+      accountLv.setText(employee.toString());
+      System.out.println(employee.toString());
+      userNameTf.clear();
+      passwordTf.clear();
+    }
+  }
+
   /** @brief method for populating the table view columns */
-  private void popTableView() {
+  private void loadProduct() {
     tbcProdName.setCellValueFactory(new PropertyValueFactory<>("name"));
     tbcManufacturer.setCellValueFactory(new PropertyValueFactory<>("manufacturer"));
     tbcItemType.setCellValueFactory(new PropertyValueFactory<>("type"));
     tbExistingProd.setItems(productLine);
+    // Query to select items from the data base and insert it into the observable arraylist that
+    // populates the table.
+    try {
+      ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Product");
+      while (rs.next()) {
+        productLine.add(
+            new Widget(
+                rs.getString(2), rs.getString(4), ItemType.valueOf(rs.getString(3)), rs.getInt(1)) {
+              @Override
+              public void setID(int id) {}
+
+              @Override
+              public int getID() {
+                return 0;
+              }
+            });
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
   /** @brief method for populating list view */
-  private void popListView() {
+  private void loadProductList() {
     lvChooseProduct.setItems(productLine);
+  }
+
+  private void loadProductLog() {
+    try {
+      Statement stmt = conn.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM PRODUCTIONRECORD");
+      // pulls Data from the database and populating it into the text area
+      while (rs.next()) {
+        ProductionRecord productionRecLog =
+            new ProductionRecord(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getTimestamp(4));
+        // production Log population
+        productionLog.appendText(productionRecLog.toString());
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * reload productLog method clears the table and repopulate the table in the production log view
+   */
+  private void reloadProductLog() {
+    productionLog.clear();
+    loadProductLog();
   }
 }
 

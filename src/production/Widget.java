@@ -1,15 +1,19 @@
 package production;
 /**
- * @Author Louis Sze
+ * this is the widget class that extends product allows the program to access abstract * product
+ * class and be used.
  *
- * @brief this is the widget class that extends product
+ * @author Louis Sze
  */
 public class Widget extends Product {
-  Widget(String name, String manufacturer, ItemType type) {
+  Widget(String name, String manufacturer, ItemType type){
     super(name, manufacturer, type);
   }
+  public Widget(String name, String manufacturer, ItemType type, Integer id) {
+    super(id, name, manufacturer, type);
+  }
 
-  /** @return 0 */
+  /** @param id a constructor that accepts single parameter int id */
   @Override
   public void setID(int id) {}
 

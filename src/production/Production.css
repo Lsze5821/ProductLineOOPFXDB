@@ -4,50 +4,81 @@
 
 #lbProductName {
   -fx-text-fill: white;
+  -fx-font-size: 16px;
+
 }
 
 #lbManufacturer {
   -fx-text-fill: white;
+  -fx-font-size: 16px;
+
 }
 
 #lbItemType {
   -fx-text-fill: white;
+  -fx-font-size: 16px;
+
 }
 
 #lbExistingProduct {
   -fx-text-fill: white;
+  -fx-font-size: 16px;
+
 }
 
 #tbExistingProd {
   -fx-text-fill: black;
-  -fx-font-size: 14px;
+  -fx-font-size: 16px;
 }
-
-#lbChooseProduct {
+#produceLabels{
   -fx-text-fill: white;
+  -fx-font-size: 16px;
 }
-
-#lbChooseQuantity {
+#employeeLabel{
   -fx-text-fill: white;
+  -fx-font-size: 16px;
 }
 
 #recordProd {
-  -fx-font-size: 13px;
+  -fx-text-fill: white;
+  -fx-font-family: "Arial Narrow";
   -fx-font-weight: bold;
+  -fx-font-size: 15px;
+  -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
-
+#searchBtn{
+  -fx-text-fill: white;
+  -fx-font-family: "Arial Narrow";
+  -fx-font-weight: bold;
+  -fx-font-size: 15px;
+  -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+#createAccBtn{
+  -fx-text-fill: white;
+  -fx-font-family: "Arial Narrow";
+  -fx-font-weight: bold;
+  -fx-font-size: 15px;
+  -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
 #itemBox {
   -fx-text-fill: black;
 }
 
 #tabProduce {
   -fx-font-weight: bold;
-  -fx-font-size: 14px;
+  -fx-font-size: 16px;
 }
 
 #tabProductionLog {
   -fx-font-weight: bold;
-  -fx-font-size: 14px;
+  -fx-font-size: 16px;
+}
+#tabEmployee{
+  -fx-font-weight: Bold;
+  -fx-font-size: 16;
 }
 
 #tabProductLine {
@@ -58,7 +89,7 @@
   -fx-font-size: 14px;
 }
 #lvChooseProduct{
-  -fx-font-size: 14px;
+  -fx-font-size: 16px;
 }
 
 .label {
@@ -77,10 +108,10 @@
   -fx-text-fill: white;
   -fx-font-family: "Arial Narrow";
   -fx-font-weight: bold;
+  -fx-font-size: 15px;
   -fx-background-color: linear-gradient(#61a2b1, #2A5058);
   -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
-
 .button:hover {
   -fx-background-color: linear-gradient(#2A5058, #61a2b1);
 }

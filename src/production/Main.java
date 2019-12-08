@@ -6,11 +6,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/** @author Louis Sze */
+/**
+ * This is the main class that starts the fxml loader and instances
+ *
+ * @author Louis Sze
+ *
+ */
 public class Main extends Application {
 
   /**
-   * @brief Main Class.
    * @param primaryStage The primary stage.
    * @throws Exception Any problem with the code.
    */
@@ -18,7 +22,7 @@ public class Main extends Application {
   public void start(Stage primaryStage) throws Exception {
     Parent root = FXMLLoader.load(getClass().getResource("Production.fxml"));
     primaryStage.setTitle("Production Table");
-    primaryStage.setScene(new Scene(root, 600, 400));
+    primaryStage.setScene(new Scene(root));
     primaryStage.show();
   }
 

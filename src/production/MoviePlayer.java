@@ -1,8 +1,8 @@
 package production;
 /**
- * @Author Louis Sze
+ * Movie Player class that extend products and implements multimedia controls.
  *
- * @brief Movie Player class that extend products and implements multimedia controls.
+ * @author Louis Sze
  */
 public class MoviePlayer extends Product implements MultimediaControl {
 

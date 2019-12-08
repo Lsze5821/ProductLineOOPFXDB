@@ -1,8 +1,9 @@
 package production;
 /**
- * @Author Louis Sze
+ * This it he audio player class that extends products implementing multimedia control, contains constructors and methods for multimedia controls.
  *
- * @brief This it he audio player class that extends products implementing multimedia control.
+ * @author Louis Sze
+ *
  */
 public class AudioPlayer extends Product implements MultimediaControl {
 

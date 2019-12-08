@@ -1,8 +1,8 @@
 package production;
 /**
- * @Author Louis Sze
+ * Screen class that implements a set of public methods of interface ScreenSpecs
  *
- * @brief Screen class that implements ScreenSpecs
+ * @author Louis Sze
  */
 public class Screen implements ScreenSpec {
   // fields for screen class containing specs

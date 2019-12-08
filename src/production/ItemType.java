@@ -1,9 +1,10 @@
 package production;
 /**
- * @Author Louis Sze
+ * enums containing item types and the code for item types.
  *
- * @brief enums containing item types and the code for item types.
+ * @author Louis Sze
  */
+
 public enum ItemType {
   AUDIO("AU"),
   VISUAL("VI"),

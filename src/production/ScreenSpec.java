@@ -1,8 +1,8 @@
 package production;
 /**
- * @Author Louis Sze
+ * Interface ScreenSpec containing gets resolution, refresh rate, and response time
  *
- * @brief Interface ScreenSpec containing gets resolution, refresh rate, and response time
+ * @author Louis Sze
  */
 public interface ScreenSpec {
   public String getResolution();

@@ -1,8 +1,9 @@
 package production;
 /**
- * @Author Louis Sze
+ * Production record class that records products
  *
- * @brief Production record class that records products
+ * @author Louis Sze
+ *
  */
 import java.util.Date;
 
@@ -91,6 +92,7 @@ public class ProductionRecord {
     this.dateProduced = dateProduced;
   }
 
+
   /**
    * toString Method that converts data types to strings
    *
@@ -105,6 +107,7 @@ public class ProductionRecord {
         + " Serial Num: "
         + serialNumber
         + " Date: "
-        + dateProduced;
+        + dateProduced
+        +"\n";
   }
 }

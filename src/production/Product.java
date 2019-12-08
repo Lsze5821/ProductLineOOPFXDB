@@ -1,13 +1,11 @@
 package production;
 /**
- *  @Author Louis Sze
+ * Abstract class product that implements items accessing the enums containing the type.
+ *
+ * @author Louis Sze
  */
-
 abstract class Product implements Item {
 
-  /**
-   * @brief Abstract class product that implements items
-   */
   // fields for the Abstract Product class
   private int id;
   ItemType type;
@@ -15,12 +13,19 @@ abstract class Product implements Item {
   String name;
   /* constructor for product initializing object of the class with defined value instead of using a
   null value*/
-  Product(String name, String manufacturer, ItemType type) {
+  Product(String name, String manufacturer, ItemType type){
+   this.name = name;
+   this.manufacturer = manufacturer;
+   this.type = type;
+  }
+  Product(int id, String name, String manufacturer, ItemType type) {
+    this.id = id;
     this.name = name;
     this.manufacturer = manufacturer;
     this.type = type;
   }
   // setters and getters for the field and methods
+
   public int getId() {
     return id;
   }
@@ -37,6 +42,7 @@ abstract class Product implements Item {
     this.type = type;
   }
 
+  @Override
   public String getManufacturer() {
     return manufacturer;
   }
@@ -46,6 +52,7 @@ abstract class Product implements Item {
     this.manufacturer = manufacturer;
   }
 
+  @Override
   public String getName() {
     return name;
   }
@@ -53,9 +60,11 @@ abstract class Product implements Item {
   @Override
   public void setName(String name) {
     this.name = name;
-}
+  }
+
   /**
    * To string method that returns variables as a string
+   *
    * @return name, manufacturer, type
    */
   public String toString() {

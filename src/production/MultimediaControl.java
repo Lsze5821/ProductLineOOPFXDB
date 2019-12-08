@@ -1,8 +1,8 @@
 package production;
-/** @Author Louis Sze */
-
 /**
- * @brief Multimedia Control interface, Default abstract with methods and no body.
+ * Multimedia Control interface, Default abstract with methods and no body.
+ *
+ * @author Louis Sze
  */
 public interface MultimediaControl {
 

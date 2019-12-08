@@ -1,8 +1,9 @@
 package production;
 /**
- * @Author Louis Sze
+ *  Enum for monitor types, to be implemented by MonitorType
  *
- * @brief enum for monitor types.
+ * @author Louis Sze
+ *
  */
 public enum MonitorType {
   LCD,
