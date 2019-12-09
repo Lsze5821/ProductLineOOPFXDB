@@ -23,7 +23,7 @@ at FGCU.
 
 
 ## Documentation
-[JavaDoc](https://github.com/Lsze5821/ProductLineOOPFXDB/blob/master/docs/index.html)
+[JavaDoc](https://lsze5821.github.io/ProductLineOOPFXDB/)
 
  
 ## Diagrams
