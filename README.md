@@ -32,7 +32,7 @@ at FGCU.
 ![Production Diagram](Packageproduction.png)
 
 **Database Diagram**
-![Production DataBase](DB.png)
+![Production DataBase](Database.png)
 
 
 
@@ -65,6 +65,11 @@ Linking Jar file:
 
 * JavaFx GUI, Database H2, SQL
 ## Contributing
+
+* Login Function
+* Improve Security
+* Adding Filter Function
+* Implement the other functions for Multimedia
 
 ## Author
 * Louis Sze
