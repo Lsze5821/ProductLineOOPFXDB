@@ -101,7 +101,7 @@ public class ProductionController {
       Class.forName(h2_Driver);
       Properties prop = new Properties();
       prop.load(new FileInputStream("res/properties"));
-      pass = prop.getProperty("password");
+      pass = reverseString(prop.getProperty("password"));
       System.out.println("Connecting");
       // Opening a Connection
       conn = DriverManager.getConnection(dB_Url, user, pass);
@@ -109,6 +109,23 @@ public class ProductionController {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  /**
+   * a recursion method to reverse the password for extra security.
+   *
+   * @param password passing the password into the function
+   * @return returns the password after the recursion method
+   */
+  private String reverseString(String password) {
+    //if statement that if the string id is empty return id ends the loop
+
+    if (password.isEmpty()) {
+      return password;
+    }
+    // reverseString reverses the string with the substring of 1 which reverses each char .
+    return reverseString(password.substring(1)) + password.charAt(0);
+
   }
 
   /**
