@@ -100,7 +100,7 @@ public class ProductionController {
     try {
       Class.forName(h2_Driver);
       Properties prop = new Properties();
-      prop.load(new FileInputStream("res/properties"));
+      prop.load(new FileInputStream("res/properties.properties"));
       pass = reverseString(prop.getProperty("password"));
       System.out.println("Connecting");
       // Opening a Connection
