@@ -1,14 +1,10 @@
 package production;
 
-import java.io.FileInputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.util.Properties;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -59,10 +55,9 @@ public class ProductionController {
    * loadProductList, Buttons.
    */
   public void initialize() {
-
+    Database database = Database.initializeDB();
     loadComboBox();
     loadItemBox();
-    initializeDB();
     loadProduct();
     loadProductList();
     loadProductLog();
@@ -83,50 +78,6 @@ public class ProductionController {
     }
   }
 
-  private Connection conn;
-  private Statement stmt;
-
-  /**
-   * This is the where the connecting to the h2 driver is connected. H2 driver URL and the Data base
-   * URL connection. Try statement connecting to the h2 database. Exception state catches anything
-   * that goes wrong in the try.
-   */
-  private void initializeDB() {
-    final String h2_Driver = "org.h2.Driver";
-    final String dB_Url = "jdbc:h2:./res/DB";
-    final String user = "";
-    String pass;
-
-    try {
-      Class.forName(h2_Driver);
-      Properties prop = new Properties();
-      prop.load(new FileInputStream("res/properties.properties"));
-      pass = reverseString(prop.getProperty("password"));
-      System.out.println("Connecting");
-      // Opening a Connection
-      conn = DriverManager.getConnection(dB_Url, user, pass);
-      System.out.println("Connection Successful");
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  /**
-   * a recursion method to reverse the password for extra security.
-   *
-   * @param password passing the password into the function
-   * @return returns the password after the recursion method
-   */
-  private String reverseString(String password) {
-    //if statement that if the string id is empty return id ends the loop
-
-    if (password.isEmpty()) {
-      return password;
-    }
-    // reverseString reverses the string with the substring of 1 which reverses each char .
-    return reverseString(password.substring(1)) + password.charAt(0);
-
-  }
 
   /**
    * this method adds the product inputs from the gui and inserts it to the database and arraylist
@@ -157,7 +108,13 @@ public class ProductionController {
       productError.setText("Product Name *");
       manuError.setText("Manufacturer *");
       itemError.setText("");
-    } else if (txtManufacturer.getText().equals("") && itemChoice == null) {
+    } else {
+      valCheck(typeText, manuText, itemChoice);
+    }
+  }
+
+  private void valCheck(String typeText, String manuText, ItemType itemChoice) {
+    if (txtManufacturer.getText().equals("") && itemChoice == null) {
       productError.setText("");
       manuError.setText("Manufacturer *");
       itemError.setText("Select Item *");
@@ -165,7 +122,13 @@ public class ProductionController {
       manuError.setText("");
       productError.setText("Product Name *");
       itemError.setText("Select Item *");
-    } else if (txtProductName.getText().equals("")) {
+    } else {
+      valCheck2(typeText, manuText, itemChoice);
+    }
+  }
+
+  private void valCheck2(String typeText, String manuText, ItemType itemChoice) {
+    if (txtProductName.getText().equals("")) {
       manuError.setText("");
       itemError.setText("");
       productError.setText("Product Name *");
@@ -185,7 +148,7 @@ public class ProductionController {
 
         // inserting the data into the database
         String sql = "INSERT INTO Product(name, manufacturer, type) VALUES ( ?,?,?)";
-        PreparedStatement addProd = conn.prepareStatement(sql);
+        PreparedStatement addProd = Database.initializeDB().conn.prepareStatement(sql);
         addProd.setString(1, typeText);
         addProd.setString(2, manuText);
         addProd.setString(3, itemChoice.toString());
@@ -205,13 +168,13 @@ public class ProductionController {
       }
     }
   }
+
   /**
    * This is the Button actions when it is clicked. When the button is clicked runs and stores the
    * data into the production record database.
    *
    * @param event that runs the code for when the button is clicked.
    */
-
   @FXML
   private void recordProdButton(ActionEvent event) {
 
@@ -233,12 +196,11 @@ public class ProductionController {
         } catch (java.lang.ClassCastException exception) {
           System.out.println("Error String");
         }
-
         int itemCount = 1;
         // sql statement that populates the production record table
         String sql =
             "INSERT INTO PRODUCTIONRECORD(PRODUCT_ID,SERIAL_NUM,DATE_PRODUCED)VALUES(?,?,?)";
-        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+        PreparedStatement preparedStatement = Database.initializeDB().conn.prepareStatement(sql);
         System.out.println("Product Recorded");
         // Getting the Id from Product and implementing it to Production Record
         int cellID = lvChooseProduct.getSelectionModel().getSelectedIndex();
@@ -267,6 +229,7 @@ public class ProductionController {
       selectError.setText("Select Product *");
     }
   }
+
 
   /**
    * creating admin user and password login information.
@@ -300,7 +263,7 @@ public class ProductionController {
     }
   }
 
-  /** method for populating the table view columns.*/
+  /** method for populating the table view columns. */
   private void loadProduct() {
     tbcProdName.setCellValueFactory(new PropertyValueFactory<>("name"));
     tbcManufacturer.setCellValueFactory(new PropertyValueFactory<>("manufacturer"));
@@ -309,15 +272,13 @@ public class ProductionController {
     // Query to select items from the data base and insert it into the observable arraylist that
     // populates the table.
     try {
-      ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Product");
+      ResultSet rs = Database.initializeDB().conn.createStatement().executeQuery("SELECT * FROM Product");
       while (rs.next()) {
         productLine.add(
             new Widget(
                 rs.getString(2), rs.getString(4), ItemType.valueOf(rs.getString(3)), rs.getInt(1)) {
               @Override
-              public void setID(int id) {
-
-              }
+              public void setID(int id) {}
 
               @Override
               public int getID() {
@@ -338,7 +299,7 @@ public class ProductionController {
   /** Production Log load method that populates the production log. */
   private void loadProductLog() {
     try {
-      Statement stmt = conn.createStatement();
+      Statement stmt = Database.initializeDB().conn.createStatement();
       ResultSet rs = stmt.executeQuery("SELECT * FROM PRODUCTIONRECORD");
       // pulls Data from the database and populating it into the text area
       while (rs.next()) {
