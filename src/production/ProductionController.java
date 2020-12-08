@@ -64,6 +64,46 @@ public class ProductionController {
     recordProd.setOnAction(this::recordProdButton);
   }
 
+  private void correctUser() {
+    error1.setText("");
+  }
+
+  private void correctPass() {
+    error2.setText("");
+  }
+
+  private void invalidUser() {
+    error1.setText("Invalid UserName *");
+  }
+
+  private void invalidPass() {
+    error2.setText("Invalid Password *");
+  }
+
+  private void invalidProduct() {
+    productError.setText("Product Name *");
+  }
+
+  private void invalidManufact() {
+    manuError.setText("Manufacturer *");
+  }
+
+  private void invalidItem() {
+    itemError.setText("Select Item *");
+  }
+
+  private void correctProduct() {
+    productError.setText("");
+  }
+
+  private void correctManufact() {
+    manuError.setText("");
+  }
+
+  private void correctItem() {
+    itemError.setText("");
+  }
+
   /** this method populating the choice box from ItemType enum. */
   private void loadItemBox() {
     itemBox.setItems(FXCollections.observableArrayList(ItemType.values()));
@@ -77,7 +117,6 @@ public class ProductionController {
       quantityBox.getSelectionModel().selectFirst();
     }
   }
-
 
   /**
    * this method adds the product inputs from the gui and inserts it to the database and arraylist
@@ -101,13 +140,13 @@ public class ProductionController {
     if (txtProductName.getText().equals("")
         && txtManufacturer.getText().equals("")
         && itemChoice == null) {
-      productError.setText("Product Name *");
-      manuError.setText("Manufacturer *");
-      itemError.setText("Select Item *");
+      invalidProduct();
+      invalidManufact();
+      invalidItem();
     } else if (txtProductName.getText().equals("") && txtManufacturer.getText().equals("")) {
-      productError.setText("Product Name *");
-      manuError.setText("Manufacturer *");
-      itemError.setText("");
+      invalidProduct();
+      invalidManufact();
+      correctItem();
     } else {
       valCheck(typeText, manuText, itemChoice);
     }
@@ -115,13 +154,13 @@ public class ProductionController {
 
   private void valCheck(String typeText, String manuText, ItemType itemChoice) {
     if (txtManufacturer.getText().equals("") && itemChoice == null) {
-      productError.setText("");
-      manuError.setText("Manufacturer *");
-      itemError.setText("Select Item *");
+      correctProduct();
+      invalidManufact();
+      invalidItem();
     } else if (txtProductName.getText().equals("") && itemChoice == null) {
-      manuError.setText("");
-      productError.setText("Product Name *");
-      itemError.setText("Select Item *");
+      invalidProduct();
+      correctManufact();
+      invalidItem();
     } else {
       valCheck2(typeText, manuText, itemChoice);
     }
@@ -129,22 +168,22 @@ public class ProductionController {
 
   private void valCheck2(String typeText, String manuText, ItemType itemChoice) {
     if (txtProductName.getText().equals("")) {
-      manuError.setText("");
-      itemError.setText("");
-      productError.setText("Product Name *");
+      invalidProduct();
+      correctManufact();
+      correctItem();
     } else if (txtManufacturer.getText().equals("")) {
-      productError.setText("");
-      itemError.setText("");
-      manuError.setText("Manufacturer *");
+      correctProduct();
+      invalidManufact();
+      correctItem();
     } else if (itemChoice == null) {
-      productError.setText("");
-      manuError.setText("");
-      itemError.setText("Select Item *");
+      correctProduct();
+      correctManufact();
+      invalidItem();
     } else {
       try {
-        productError.setText("");
-        manuError.setText("");
-        itemError.setText("");
+        correctProduct();
+        correctManufact();
+        correctItem();
 
         // inserting the data into the database
         String sql = "INSERT INTO Product(name, manufacturer, type) VALUES ( ?,?,?)";
@@ -230,7 +269,6 @@ public class ProductionController {
     }
   }
 
-
   /**
    * creating admin user and password login information.
    *
@@ -240,18 +278,17 @@ public class ProductionController {
   void createAccBtn(ActionEvent event) {
     // if loops to check if the text fields are empty
     if (passwordTf.getText().equals("") && userNameTf.getText().equals("")) {
-      error1.setText("Invalid User Name *");
-      error2.setText("Invalid Password *");
+      invalidUser();
+      invalidPass();
     } else if (passwordTf.getText().equals("")) {
-      error1.setText("");
-      error2.setText("Invalid Password *");
+      correctUser();
+      invalidPass();
     } else if (userNameTf.getText().equals("")) {
-      error2.setText("");
-      error1.setText("Invalid User Name *");
-
+      invalidUser();
+      correctPass();
     } else {
-      error1.setText("");
-      error2.setText("");
+      correctUser();
+      correctPass();
       String newUsername = userNameTf.getText();
       String newPassword = passwordTf.getText();
       Employee employee = new Employee(newUsername, newPassword);
@@ -272,7 +309,8 @@ public class ProductionController {
     // Query to select items from the data base and insert it into the observable arraylist that
     // populates the table.
     try {
-      ResultSet rs = Database.initializeDB().conn.createStatement().executeQuery("SELECT * FROM Product");
+      ResultSet rs =
+          Database.initializeDB().conn.createStatement().executeQuery("SELECT * FROM Product");
       while (rs.next()) {
         productLine.add(
             new Widget(
